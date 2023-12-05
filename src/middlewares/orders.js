@@ -1,0 +1,17 @@
+const orderStatus = [
+    'chờ duyệt',
+    'lấy hàng',
+    'đang giao',
+    'giao hàng thành công',
+    'Hủy đơn hàng'
+  ];
+  export const validateOrder =(req,res,next)=>{
+    const {status,address,orderTotal} =req.body
+    if( !address ||!orderTotal){
+        return res.status(400).json({error:"Please provide all required fields."})
+    } 
+    if(status && !orderStatus.includes(status)){
+        return res.status(400).json({error:`Status must be one of ${orderStatus.join(', ')}`})
+    }
+    next();
+  }
